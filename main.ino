@@ -20,10 +20,26 @@ unsigned char orange4 = 11;
 unsigned char red4    = 12;
 
 // IR receiver
-unsigned char irReciver = 13;
+unsigned char irReciver = 13;   
 
 void setup(){
+    pinMode(green1,  OUTPUT);
+    pinMode(orange1, OUTPUT);
+    pinMode(red1,    OUTPUT);
 
+    pinMode(green2,  OUTPUT);
+    pinMode(orange2, OUTPUT);
+    pinMode(red2,    OUTPUT);
+
+    pinMode(green3,  OUTPUT);
+    pinMode(orange3, OUTPUT);
+    pinMode(red3,    OUTPUT);
+
+    pinMode(green4,  OUTPUT);
+    pinMode(orange4, OUTPUT);
+    pinMode(red4,    OUTPUT);
+
+    pinMode(irReciver, INPUT);
 }
 
 void loop(){
