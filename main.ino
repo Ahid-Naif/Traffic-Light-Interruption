@@ -1,4 +1,5 @@
 #include "initializations.h"
+#include "traffic_light_modes.h"
 
 void setup(){
     // define traffic light LEDs as INPUT
