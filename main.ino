@@ -1,4 +1,4 @@
-#include "initializations.cpp"
+#include "initializations.h"
 
 void setup(){
     // define traffic light LEDs as INPUT
