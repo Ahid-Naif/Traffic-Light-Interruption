@@ -19,6 +19,12 @@ void traffic1_stop(){
     digitalWrite(red1,    HIGH);
 }
 
+void initialize_traffic1(){
+    digitalWrite(green1,  LOW);
+    digitalWrite(orange1, LOW);
+    digitalWrite(red1,    LOW);
+}
+
 // define traffic light 2 modes
 void traffic2_go(){
     digitalWrite(green2,  HIGH);
@@ -36,6 +42,12 @@ void traffic2_stop(){
     digitalWrite(green2,  LOW);
     digitalWrite(orange2, LOW);
     digitalWrite(red2,    HIGH);
+}
+
+void initialize_traffic2(){
+    digitalWrite(green2,  LOW);
+    digitalWrite(orange2, LOW);
+    digitalWrite(red2,    LOW);
 }
 
 // define traffic light 3 modes
@@ -57,6 +69,12 @@ void traffic3_stop(){
     digitalWrite(red3,    HIGH);
 }
 
+void initialize_traffic3(){
+    digitalWrite(green3,  LOW);
+    digitalWrite(orange3, LOW);
+    digitalWrite(red3,    LOW);
+}
+
 // define traffic light 4 modes
 void traffic4_go(){
     digitalWrite(green4,  HIGH);
@@ -74,4 +92,10 @@ void traffic4_stop(){
     digitalWrite(green4,  LOW);
     digitalWrite(orange4, LOW);
     digitalWrite(red4,    HIGH);
+}
+
+void initialize_traffic4(){
+    digitalWrite(green4,  LOW);
+    digitalWrite(orange4, LOW);
+    digitalWrite(red4,    LOW);
 }
