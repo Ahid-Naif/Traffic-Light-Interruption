@@ -1,5 +1,5 @@
 #include "initializations.h"
-#include "traffic_light_modes.h"
+#include "sequence.h"
 
 void setup(){
     // define traffic light LEDs as INPUT
@@ -10,6 +10,10 @@ void setup(){
 
     // define IR receiver as OUTPUT
     defineReceiver();
+
+    // set all traffic lights in initial state
+    sequence0();
+
 }
 
 void loop(){
