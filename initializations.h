@@ -1,36 +1,38 @@
 #ifndef initializations_h
 #define initializations_h
 
+#include <arduino.h>
+
 /*------ Variables Initialization ------*/
 // variables for traffic light number 1
-unsigned char green1  = 1;
-unsigned char orange1 = 2;
-unsigned char red1    = 3;
+extern unsigned char green1;
+extern unsigned char orange1;
+extern unsigned char red1;
 
 // variables for traffic light number 2
-unsigned char green2  = 4;
-unsigned char orange2 = 5;
-unsigned char red2    = 6;
+extern unsigned char green2;
+extern unsigned char orange2;
+extern unsigned char red2;
 
 // variables for traffic light number 3
-unsigned char green3  = 7;
-unsigned char orange3 = 8;
-unsigned char red3    = 9;
+extern unsigned char green3;
+extern unsigned char orange3;
+extern unsigned char red3;
 
 // variables for traffic light number 4
-unsigned char green4  = 10;
-unsigned char orange4 = 11;
-unsigned char red4    = 12;
+extern unsigned char green4;
+extern unsigned char orange4;
+extern unsigned char red4;
 
 // IR receiver
-unsigned char irReciver = 13;
+extern unsigned char irReciver;
 
 /*------ Define Functions ------*/
-void defineTrafficLight1();
-void defineTrafficLight2();
-void defineTrafficLight3();
-void defineTrafficLight4();
+extern void defineTrafficLight1();
+extern void defineTrafficLight2();
+extern void defineTrafficLight3();
+extern void defineTrafficLight4();
 
-void defineReceiver();
+extern void defineReceiver();
 
 #endif

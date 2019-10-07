@@ -1,6 +1,4 @@
 #include "traffic_light_modes.h"
-#include "initializations.h"
-#include <Arduino.h>
 
 // define traffic light 1 modes
 void traffic1_go(){
