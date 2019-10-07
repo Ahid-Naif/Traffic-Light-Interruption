@@ -3,7 +3,7 @@
 
 #include <arduino.h>
 
-/*------ Variables Initialization ------*/
+/*------ Variables Declaration ------*/
 // variables for traffic light number 1
 extern unsigned char green1;
 extern unsigned char orange1;
@@ -27,7 +27,7 @@ extern unsigned char red4;
 // IR receiver
 extern unsigned char irReciver;
 
-/*------ Define Functions ------*/
+/*------ Functions Declaration ------*/
 extern void defineTrafficLight1();
 extern void defineTrafficLight2();
 extern void defineTrafficLight3();

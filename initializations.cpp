@@ -24,6 +24,7 @@ unsigned char red4    = 12;
 // IR receiver
 unsigned char irReciver = 13;
 
+/*------ Define Functions ------*/
 void defineTrafficLight1(){
     pinMode(green1,  OUTPUT);
     pinMode(orange1, OUTPUT);
