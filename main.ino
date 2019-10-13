@@ -2,7 +2,7 @@
 #include "sequences.h"
 
 // traffic light related variables decleration
-unsigned long onTime   = 5000; // ON   Time of 5000 ms (5 seconds)
+unsigned long onTime   = 5000;   // ON   Time of 5000 ms (5 seconds)
 unsigned long waitTime = 2000; // Wait Time of 2000 ms (2 seconds)
 unsigned long previousTime, currentTime;
 
@@ -10,7 +10,8 @@ int sequenceCounter = 0;
 
 char command = '0'; // to store commands
 
-void setup(){
+void setup()
+{
     // define traffic light LEDs as INPUT
     defineTrafficLight1();
     defineTrafficLight2();
@@ -27,72 +28,90 @@ void setup(){
     sequence1();
     sequenceCounter++;
     previousTime = millis(); // initializa previousTime variable
-    for(;;){
+    for (;;)
+    {
         currentTime = millis();
-        if(sequenceCounter == 1){
-            if(currentTime - previousTime >= onTime){
+        if (sequenceCounter == 1)
+        {
+            if (currentTime - previousTime >= onTime)
+            {
                 sequence2();
-                sequenceCounter++;  
+                sequenceCounter++;
                 previousTime = currentTime;
             }
         }
-        else if(sequenceCounter == 2){
-            if(currentTime - previousTime >= waitTime){
+        else if (sequenceCounter == 2)
+        {
+            if (currentTime - previousTime >= waitTime)
+            {
                 sequence3();
                 sequenceCounter++;
                 previousTime = currentTime;
             }
         }
-        else if(sequenceCounter == 3){
-            if(currentTime - previousTime >= onTime){
+        else if (sequenceCounter == 3)
+        {
+            if (currentTime - previousTime >= onTime)
+            {
                 sequence4();
                 sequenceCounter++;
                 previousTime = currentTime;
             }
         }
-        else if(sequenceCounter == 4){
-            if(currentTime - previousTime >= waitTime){
+        else if (sequenceCounter == 4)
+        {
+            if (currentTime - previousTime >= waitTime)
+            {
                 sequence5();
                 sequenceCounter++;
                 previousTime = currentTime;
             }
         }
-        else if(sequenceCounter == 5){
-            if(currentTime - previousTime >= onTime){
+        else if (sequenceCounter == 5)
+        {
+            if (currentTime - previousTime >= onTime)
+            {
                 sequence6();
                 sequenceCounter++;
                 previousTime = currentTime;
             }
         }
-        else if(sequenceCounter == 6){
-            if(currentTime - previousTime >= waitTime){
+        else if (sequenceCounter == 6)
+        {
+            if (currentTime - previousTime >= waitTime)
+            {
                 sequence7();
                 sequenceCounter++;
                 previousTime = currentTime;
             }
         }
-        else if(sequenceCounter == 7){
-            if(currentTime - previousTime >= onTime){
+        else if (sequenceCounter == 7)
+        {
+            if (currentTime - previousTime >= onTime)
+            {
                 sequence8();
                 sequenceCounter++;
                 previousTime = currentTime;
             }
         }
-        else if(sequenceCounter == 8){
-            if(currentTime - previousTime >= waitTime){
+        else if (sequenceCounter == 8)
+        {
+            if (currentTime - previousTime >= waitTime)
+            {
                 sequence1();
                 sequenceCounter = 1;
                 previousTime = currentTime;
             }
         }
-        
+
         // check received signals
-        if(Serial.available()){
+        if (Serial.available())
+        {
             command = Serial.read();
         }
     }
 }
 
-void loop(){
-    
+void loop()
+{
 }
