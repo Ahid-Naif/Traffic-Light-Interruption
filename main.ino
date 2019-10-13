@@ -1,11 +1,20 @@
+#include <IRremote.h>
+#include <IRremoteInt.h>
+
 #include "initializations.h"
 #include "sequences.h"
 
+// traffic light related variables decleration
 unsigned long onTime   = 5000; // ON   Time of 5000 ms (5 seconds)
 unsigned long waitTime = 2000; // Wait Time of 2000 ms (2 seconds)
 unsigned long previousTime, currentTime;
 
 int sequenceCounter = 0;
+
+// IR related variables decleration
+const int RECV_PIN = 7;
+IRrecv irrecv(RECV_PIN);
+decode_results results;
 
 void setup(){
     // define traffic light LEDs as INPUT
@@ -16,6 +25,8 @@ void setup(){
 
     // define IR receiver as OUTPUT
     defineReceiver();
+
+    irrecv.enableIRIn(); // start receiving signals
 
     // set all traffic lights in initial state
     sequence0(); // to ensure all LEDs are OFF
@@ -81,6 +92,11 @@ void setup(){
             }
         }
         
+        // check received signals
+        if (irrecv.decode(&results)){
+            Serial.println(results.value, HEX);
+            irrecv.resume();
+        }
     }
 }
 
