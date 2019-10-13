@@ -11,6 +11,7 @@ unsigned long previousTime, currentTime;
 int sequenceCounter = 0;
 
 Vector<int> commands;
+char command = '0'; // to store commands
 
 void setup(){
     // define traffic light LEDs as INPUT
@@ -21,6 +22,8 @@ void setup(){
 
     // define IR receiver as OUTPUT
     defineReceiver();
+
+    Serial.begin(9600);
 
     // set all traffic lights in initial state
     sequence0(); // to ensure all LEDs are OFF
@@ -87,7 +90,10 @@ void setup(){
         }
         
         // check received signals
-        
+        command = Serial.read();
+        if(command != "0"){
+
+        }
     }
 }
 
