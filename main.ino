@@ -1,5 +1,3 @@
-#include <Vector.h>
-
 #include "initializations.h"
 #include "sequences.h"
 
@@ -10,7 +8,6 @@ unsigned long previousTime, currentTime;
 
 int sequenceCounter = 0;
 
-Vector<int> commands;
 char command = '0'; // to store commands
 
 void setup(){
