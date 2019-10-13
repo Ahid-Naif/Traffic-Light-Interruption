@@ -22,8 +22,6 @@ void setup(){
     // define IR receiver as OUTPUT
     defineReceiver();
 
-    irrecv.enableIRIn(); // start receiving signals
-
     // set all traffic lights in initial state
     sequence0(); // to ensure all LEDs are OFF
     sequence1();
