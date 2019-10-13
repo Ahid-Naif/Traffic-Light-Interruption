@@ -10,11 +10,6 @@ unsigned long previousTime, currentTime;
 
 int sequenceCounter = 0;
 
-// IR related variables decleration
-const int RECV_PIN = 7;
-IRrecv irrecv(RECV_PIN);
-decode_results results;
-
 Vector<int> commands;
 
 void setup(){
