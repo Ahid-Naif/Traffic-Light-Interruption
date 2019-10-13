@@ -1,8 +1,5 @@
 #include <Vector.h>
 
-#include <IRremote.h>
-#include <IRremoteInt.h>
-
 #include "initializations.h"
 #include "sequences.h"
 
@@ -97,10 +94,7 @@ void setup(){
         }
         
         // check received signals
-        if (irrecv.decode(&results)){
-            Serial.println(results.value, HEX);
-            irrecv.resume();
-        }
+        
     }
 }
 
