@@ -1,3 +1,5 @@
+#include <Vector.h>
+
 #include <IRremote.h>
 #include <IRremoteInt.h>
 
@@ -15,6 +17,8 @@ int sequenceCounter = 0;
 const int RECV_PIN = 7;
 IRrecv irrecv(RECV_PIN);
 decode_results results;
+
+Vector<int> commands;
 
 void setup(){
     // define traffic light LEDs as INPUT
