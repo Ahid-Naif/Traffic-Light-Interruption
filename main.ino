@@ -87,9 +87,8 @@ void setup(){
         }
         
         // check received signals
-        command = Serial.read();
-        if(command != "0"){
-
+        if(Serial.available()){
+            command = Serial.read();
         }
     }
 }
