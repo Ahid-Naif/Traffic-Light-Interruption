@@ -25,17 +25,11 @@ void setup()
     for (;;)
     {
         doTrafficLightLogic(0);
-
-        // check received signals
-        if (Serial.available())
-        {
-            command = Serial.read();
-            Serial.println("command added!");
-            addCommand(command);
-        }
+        
         commandExist = checkCommands();
         if (commandExist)
         {
+            Serial.println("There are commands!!!!!!");
             startCommands();
         }
     }

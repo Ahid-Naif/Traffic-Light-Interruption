@@ -6,8 +6,8 @@ unsigned long waitTime = 2000; // Wait Time of 2000 ms (2 seconds)
 unsigned long holdTime = 1000; // hold Time of 1000 ms (1 second)
 unsigned long previousTime, currentTime;
 bool isHold = false;
-int sequenceCounter = 0, interruptLimit = 0, tempCounter = 0;
-bool interruptON = false;
+int sequenceCounter = 0, tempCounter = 0;
+bool interruptON = false, startInterrupt = false, endInterrupt = false, goBack = false;
 
 /*------ Define Functions ------*/
 void doTrafficLightLogic(int interruptSequence)
@@ -16,10 +16,32 @@ void doTrafficLightLogic(int interruptSequence)
     {
         if(!interruptON)
         {
-            tempCounter = sequenceCounter;
-            sequenceCounter = interruptSequence;
-            interruptLimit = interruptSequence + 2;
+            Serial.print("counter: ");
+            Serial.println(sequenceCounter);
+
+            // save at what position the traffic light was
+            if(isHold)
+            {
+                // if traffic light was red, save the next position instead
+                tempCounter = sequenceCounter + 1;
+            }
+            else
+            {
+                tempCounter = sequenceCounter;
+            }
+            // go to YELLOW only if it's not already in YELLOW
+            if(sequenceCounter%2 != 0)
+            {
+                sequenceCounter++;
+            }
+            
             interruptON = true;
+            startInterrupt = true;
+            // turn current green traffic light into YELLOW if it's not red
+            if(!isHold)
+            {
+                go2Sequence(sequenceCounter);
+            }
         } 
     }
 
@@ -28,28 +50,31 @@ void doTrafficLightLogic(int interruptSequence)
     {
         if (currentTime - previousTime >= holdTime)
         {
-            
-            if(sequenceCounter == 8)
+            if(startInterrupt)
             {
-                sequenceCounter = 1;
+                sequenceCounter = interruptSequence;
+                startInterrupt = false;
+                endInterrupt = true;
+            }
+            else if(endInterrupt)
+            {
+                sequenceCounter = tempCounter;
+                endInterrupt = false;
+                goBack = true;
             }
             else
             {
-                sequenceCounter++;
+                if(sequenceCounter == 8)
+                {
+                    sequenceCounter = 1;
+                }
+                else
+                {
+                    sequenceCounter++;
+                }
             }
 
-            if(sequenceCounter == 1){
-                sequence1();
-            }
-            else if(sequenceCounter == 3){
-                sequence3();
-            }
-            else if(sequenceCounter == 5){
-                sequence5();
-            }
-            else if(sequenceCounter == 7){
-                sequence7();
-            }
+            go2Sequence(sequenceCounter);
             previousTime = currentTime;
             isHold = false;
         }
@@ -125,5 +150,15 @@ void doTrafficLightLogic(int interruptSequence)
             previousTime = currentTime;
             isHold = true;
         }
+    }
+
+    // check received signals
+    if (Serial.available())
+    {
+        command = Serial.read();
+            
+        addCommand(command);
+        Serial.println("command added!");
+        Serial.println("--------------------------");
     }
 }

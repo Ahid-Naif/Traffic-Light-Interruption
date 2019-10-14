@@ -9,8 +9,17 @@ char toDo = 0;
 /*------ Define Functions ------*/
 void addCommand(char command)
 {
+    Serial.println("add function: ");
+    Serial.print("before..");
     for (int i = 0; i <= 3; i++)
     {
+        if( (command != '1') && (command != '2') && (command != '3') && (command != '4'))
+        {
+            break;
+        }
+        Serial.print("i = ");
+        Serial.println(i);
+        printCommands();
         if (commands[i] == '0')
         {
             commands[i] = command;
@@ -23,7 +32,11 @@ void addCommand(char command)
                 break;
             }
         }
+        
     }
+    Serial.println();
+    Serial.println("after..");
+    printCommands();
 }
 
 bool checkCommands()
@@ -56,19 +69,56 @@ void commandsPop()
 void startCommands()
 {
     toDo = commands[0];
-    commandsPop();
+    Serial.print("to do: ");
+    Serial.println(toDo);
 
-    if (toDo == '1')
+    previousTime = millis();
+    Serial.print("-----START-----");
+    for (;;)
     {
-        previousTime = millis();
-        for (;;)
+        if(toDo == '1')
         {
-            doTrafficLightLogic(8);
-            if (sequenceCounter == interruptLimit)
-            {
-                sequenceCounter = tempCounter;
-                break;
-            }
+            doTrafficLightLogic(1);
+        }
+        else if(toDo == '2')
+        {
+            doTrafficLightLogic(3);
+        }
+        else if(toDo == '3')
+        {
+            doTrafficLightLogic(5);
+        }
+        else if (toDo == '4')
+        {
+            doTrafficLightLogic(7);
+        }
+        
+        if (goBack)
+        {
+            tempCounter = 0;
+            interruptON = false;
+            startInterrupt = false;
+            endInterrupt = false;
+            goBack = false;
+
+            commandsPop();
+            break;
         }
     }
+    commandExist = checkCommands();
+    if (commandExist)
+    {
+        Serial.println("There are commands!!!!!!");
+        startCommands();
+    }
+    Serial.println("--------END--------");
+}
+
+void printCommands(){
+    Serial.print("print function: ");
+    for (int i = 0; i <= 3; i++)
+    {
+        Serial.print(commands[i]);
+    }
+    Serial.println();
 }

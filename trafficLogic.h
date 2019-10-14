@@ -2,6 +2,9 @@
 #define trafficlogic_h
 
 #include "sequences.h"
+#include "doCommands.h"
+#include <IRremote.h>
+#include <IRremoteInt.h>
 
 /*------ Variables Declaration ------*/
 extern unsigned long onTime;
@@ -12,8 +15,10 @@ extern bool isHold;
 
 extern int sequenceCounter;
 extern int tempCounter;
-extern int interruptLimit;
 extern bool interruptON;
+extern bool startInterrupt;
+extern bool endInterrupt;
+extern bool goBack;
 
 /*------ Functions Declaration ------*/
 extern void doTrafficLightLogic(int); 

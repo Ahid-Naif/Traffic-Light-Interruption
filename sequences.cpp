@@ -69,3 +69,30 @@ void sequence8(){
     traffic3_stop();
     traffic4_wait();
 }
+
+void go2Sequence(int counter){
+    if(counter == 1){
+        sequence1();
+    }
+    else if(counter == 2){
+        sequence2();
+    }
+    else if(counter == 3){
+        sequence3();
+    }
+    else if(counter == 4){
+        sequence4();
+    }
+    else if(counter == 5){
+        sequence5();
+    }
+    else if(counter == 6){
+        sequence6();
+    }
+    else if(counter == 7){
+        sequence7();
+    }
+    else if(counter == 8){
+        sequence8();
+    }
+}
