@@ -3,21 +3,58 @@
 /*------ Variables Initialization ------*/
 unsigned long onTime = 5000;   // ON   Time of 5000 ms (5 seconds)
 unsigned long waitTime = 2000; // Wait Time of 2000 ms (2 seconds)
+unsigned long holdTime = 1000; // hold Time of 1000 ms (1 second)
 unsigned long previousTime, currentTime;
+bool isHold = false;
 int sequenceCounter = 0, interruptLimit = 0, tempCounter = 0;
+bool interruptON = false;
 
 /*------ Define Functions ------*/
 void doTrafficLightLogic(int interruptSequence)
 {
     if (interruptSequence != 0)
     {
-        tempCounter = sequenceCounter;
-        sequenceCounter = interruptSequence;
-        interruptLimit = interruptSequence + 2;
+        if(!interruptON)
+        {
+            tempCounter = sequenceCounter;
+            sequenceCounter = interruptSequence;
+            interruptLimit = interruptSequence + 2;
+            interruptON = true;
+        } 
     }
 
     currentTime = millis();
-    if (sequenceCounter == 1)
+    if (isHold)
+    {
+        if (currentTime - previousTime >= holdTime)
+        {
+            
+            if(sequenceCounter == 8)
+            {
+                sequenceCounter = 1;
+            }
+            else
+            {
+                sequenceCounter++;
+            }
+
+            if(sequenceCounter == 1){
+                sequence1();
+            }
+            else if(sequenceCounter == 3){
+                sequence3();
+            }
+            else if(sequenceCounter == 5){
+                sequence5();
+            }
+            else if(sequenceCounter == 7){
+                sequence7();
+            }
+            previousTime = currentTime;
+            isHold = false;
+        }
+    }
+    else if (sequenceCounter == 1)
     {
         if (currentTime - previousTime >= onTime)
         {
@@ -30,9 +67,9 @@ void doTrafficLightLogic(int interruptSequence)
     {
         if (currentTime - previousTime >= waitTime)
         {
-            sequence3();
-            sequenceCounter++;
+            allRed();
             previousTime = currentTime;
+            isHold = true;
         }
     }
     else if (sequenceCounter == 3)
@@ -48,9 +85,9 @@ void doTrafficLightLogic(int interruptSequence)
     {
         if (currentTime - previousTime >= waitTime)
         {
-            sequence5();
-            sequenceCounter++;
+            allRed();
             previousTime = currentTime;
+            isHold = true;
         }
     }
     else if (sequenceCounter == 5)
@@ -66,9 +103,9 @@ void doTrafficLightLogic(int interruptSequence)
     {
         if (currentTime - previousTime >= waitTime)
         {
-            sequence7();
-            sequenceCounter++;
+            allRed();
             previousTime = currentTime;
+            isHold = true;
         }
     }
     else if (sequenceCounter == 7)
@@ -84,9 +121,9 @@ void doTrafficLightLogic(int interruptSequence)
     {
         if (currentTime - previousTime >= waitTime)
         {
-            sequence1();
-            sequenceCounter = 1;
+            allRed();
             previousTime = currentTime;
+            isHold = true;
         }
     }
 }

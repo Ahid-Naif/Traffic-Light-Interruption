@@ -1,5 +1,12 @@
 #include "sequences.h"
 
+void allRed(){
+    traffic1_stop();
+    traffic2_stop();
+    traffic3_stop();
+    traffic4_stop();
+}
+
 void sequence0(){
     initialize_traffic1();
     initialize_traffic2();

@@ -3,6 +3,7 @@
 
 #include "traffic_light_modes.h"
 
+void allRed();
 void sequence0();
 void sequence1();
 void sequence2();
