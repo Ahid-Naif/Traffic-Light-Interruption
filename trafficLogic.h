@@ -3,8 +3,6 @@
 
 #include "sequences.h"
 #include "doCommands.h"
-#include <IRremote.h>
-#include <IRremoteInt.h>
 
 /*------ Variables Declaration ------*/
 extern unsigned long onTime;
