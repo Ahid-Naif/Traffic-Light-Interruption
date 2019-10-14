@@ -3,6 +3,11 @@
 #include "doCommands.h"
 #include "trafficLogic.h"
 
+// define IR receiver as OUTPUT
+int RECV_PIN = 13;
+IRrecv irrecv(RECV_PIN);
+decode_results results;
+
 void setup()
 {
     // define traffic light LEDs as INPUT
@@ -11,8 +16,8 @@ void setup()
     defineTrafficLight3();
     defineTrafficLight4();
 
-    // define IR receiver as OUTPUT
-    defineReceiver();
+    // Start the receiver
+    irrecv.enableIRIn();
 
     Serial.begin(9600);
     Serial.println("Start traffic...");
