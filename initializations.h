@@ -24,9 +24,6 @@ extern unsigned char green4;
 extern unsigned char orange4;
 extern unsigned char red4;
 
-// IR receiver
-extern unsigned char irReciver;
-
 /*------ Functions Declaration ------*/
 extern void defineTrafficLight1();
 extern void defineTrafficLight2();
