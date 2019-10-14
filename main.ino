@@ -1,3 +1,6 @@
+#include <IRremote.h>
+#include <IRremoteInt.h>
+
 #include "initializations.h"
 #include "sequences.h"
 #include "doCommands.h"
@@ -42,4 +45,38 @@ void setup()
 
 void loop()
 {
+}
+
+void receiveSignal()
+{
+    if (irrecv.decode(&results)) {
+        String message = String(results.value, HEX);
+        char command = decodeMessage(message);
+        Serial.println(command);
+        irrecv.resume(); // Receive the next value
+    }
+    delay(100);
+}
+
+char decodeMessage(String message ){
+  if(message == "ff30cf")
+  {
+    return '1';
+  }
+  else if(message == "ff18e7")
+  {
+    return '2';
+  }
+  else if(message == "ff7a85")
+  {
+    return '3';
+  }
+  else if(message == "ff10ef")
+  {
+    return '4';
+  }
+  else
+  {
+    return '0';
+  }
 }
