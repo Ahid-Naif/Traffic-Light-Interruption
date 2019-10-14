@@ -30,6 +30,4 @@ extern void defineTrafficLight2();
 extern void defineTrafficLight3();
 extern void defineTrafficLight4();
 
-extern void defineReceiver();
-
 #endif

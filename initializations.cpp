@@ -45,7 +45,3 @@ void defineTrafficLight4(){
     pinMode(orange4, OUTPUT);
     pinMode(red4,    OUTPUT);
 }
-
-void defineReceiver(){
-    pinMode(irReciver, INPUT);
-}
