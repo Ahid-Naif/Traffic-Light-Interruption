@@ -151,14 +151,4 @@ void doTrafficLightLogic(int interruptSequence)
             isHold = true;
         }
     }
-
-    // check received signals
-    if (Serial.available())
-    {
-        command = Serial.read();
-            
-        addCommand(command);
-        Serial.println("command added!");
-        Serial.println("--------------------------");
-    }
 }
