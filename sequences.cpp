@@ -15,14 +15,14 @@ void sequence0(){
 }
 
 void sequence1(){
-    traffic1_go();
-    traffic2_stop();
-    traffic3_stop();
-    traffic4_stop();
+    traffic1_go(); // green
+    traffic2_stop(); // red
+    traffic3_stop(); // red
+    traffic4_stop(); // red
 }
 
 void sequence2(){
-    traffic1_wait();
+    traffic1_wait(); // yellow
     traffic2_stop();
     traffic3_stop();
     traffic4_stop();
