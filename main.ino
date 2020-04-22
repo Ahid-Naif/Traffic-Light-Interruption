@@ -1,3 +1,6 @@
+/*
+  IR library
+*/
 #include <IRremote.h>
 #include <IRremoteInt.h>
 
@@ -14,42 +17,41 @@ decode_results results;
 void setup()
 {
   // define traffic light LEDs as INPUT
-  defineTrafficLight1();
-  defineTrafficLight2();
+  defineTrafficLight1(); // تعريف لدات الاشارة 1
+  defineTrafficLight2(); // تعريف لدات الاشارة 2
   defineTrafficLight3();
   defineTrafficLight4();
 
   // Start the receiver
-  irrecv.enableIRIn();
-
-  Serial.begin(9600);
-  Serial.println("Start traffic...");
+  irrecv.enableIRIn(); 
 
   // set all traffic lights in initial state
   sequence0(); // to ensure all LEDs are OFF
   sequence1();
-  sequenceCounter++;
+  sequenceCounter++; // +1
   previousTime = millis(); // initializa previousTime variable
   for (;;)
   {
     doTrafficLightLogic(0);
-    
+    // --------------- استقبال من ال IR ------------------
     // check received signals
-    if (Serial.available())
+    if (irrecv.decode(&results)) // في حال استقبال رسالة
     {
-      command = Serial.read();
-
-      addCommand(command);
-      Serial.println("command added!");
-      Serial.println("--------------------------");
+      String message = String(results.value, HEX); // store message
+      char command = decodeMessage(message); // فك الشفرة
+      addCommand(command); // إضافة الأمر
+      irrecv.resume(); // الاستقبال مجددا
     }
+    delay(200); // 0.2 second
+    // ---------------------------------------------------
 
-    commandExist = checkCommands();
+    // ------------تنفيذ الأوامر -----------
+    commandExist = checkCommands(); // تفحص الأوامر
     if (commandExist)
     {
-      Serial.println("There are commands!!!!!!");
       startCommands();
     }
+    // -----------------------------------
   }
 }
 
@@ -63,7 +65,6 @@ void receiveSignal()
   {
     String message = String(results.value, HEX);
     char command = decodeMessage(message);
-    Serial.println(command);
     irrecv.resume(); // Receive the next value
   }
   delay(100);
