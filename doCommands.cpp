@@ -9,19 +9,16 @@ char toDo = 0;
 /*------ Define Functions ------*/
 void addCommand(char command)
 {
-    Serial.println("add function: ");
-    Serial.print("before..");
     for (int i = 0; i <= 3; i++)
     {
         if( (command != '1') && (command != '2') && (command != '3') && (command != '4'))
         {
-            break;
+            // إذا الامر ليس 1 او 2 او 3 او 4
+            break; // تجاهل
         }
-        Serial.print("i = ");
-        Serial.println(i);
-        printCommands();
         if (commands[i] == '0')
         {
+            // إضافة الأمر
             commands[i] = command;
             break;
         }
@@ -29,25 +26,24 @@ void addCommand(char command)
         {
             if (commands[i] == command)
             {
-                break;
+                // إذا كان الامر مكرر
+                break; // تجاهل
             }
         }
         
     }
-    Serial.println();
-    Serial.println("after..");
-    printCommands();
 }
 
 bool checkCommands()
 {
     if (commands[0] == '0')
     {
-        return false;
+        // إذا قيمة الأوامر صغر
+        return false; // رسالة خطأ
     }
     else
     {
-        return true;
+        return true; // رسالة صح
     }
 }
 
@@ -68,12 +64,9 @@ void commandsPop()
 
 void startCommands()
 {
-    toDo = commands[0];
-    Serial.print("to do: ");
-    Serial.println(toDo);
+    toDo = commands[0]; // تخزين قيمة الامر الاول
 
     previousTime = millis();
-    Serial.print("-----START-----");
     for (;;)
     {
         if(toDo == '1')
@@ -101,24 +94,13 @@ void startCommands()
             endInterrupt = false;
             goBack = false;
 
-            commandsPop();
-            break;
+            commandsPop(); // حذف الامر بعد التنفيذ
+            break; // تجاهل الاوامر من الريموت
         }
     }
     commandExist = checkCommands();
     if (commandExist)
     {
-        Serial.println("There are commands!!!!!!");
         startCommands();
     }
-    Serial.println("--------END--------");
-}
-
-void printCommands(){
-    Serial.print("print function: ");
-    for (int i = 0; i <= 3; i++)
-    {
-        Serial.print(commands[i]);
-    }
-    Serial.println();
 }
