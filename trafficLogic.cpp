@@ -1,9 +1,9 @@
 #include "trafficLogic.h"
 
 /*------ Variables Initialization ------*/
-unsigned long onTime = 5000;   // ON   Time of 5000 ms (5 seconds)
-unsigned long waitTime = 2000; // Wait Time of 2000 ms (2 seconds)
-unsigned long holdTime = 1000; // hold Time of 1000 ms (1 second)
+unsigned long onTime = 5000;   // ON (green)   Time of 5000 ms (5 seconds)
+unsigned long waitTime = 2000; // Wait (yellow) Time of 2000 ms (2 seconds)
+unsigned long holdTime = 1000; // hold (red) Time of 1000 ms (1 second)
 unsigned long previousTime, currentTime;
 bool isHold = false;
 int sequenceCounter = 0, tempCounter = 0;
@@ -12,14 +12,13 @@ bool interruptON = false, startInterrupt = false, endInterrupt = false, goBack =
 /*------ Define Functions ------*/
 void doTrafficLightLogic(int interruptSequence)
 {
+    // ----------- في حال وجود أوامر من الكنترول -----------
     if (interruptSequence != 0)
     {
-        if(!interruptON)
+        if(!interruptON) // ينفذ مرة واحدة
         {
-            Serial.print("counter: ");
-            Serial.println(sequenceCounter);
-
             // save at what position the traffic light was
+            // ----------- تخزين رقم النمط الحالي ------------
             if(isHold)
             {
                 // if traffic light was red, save the next position instead
@@ -27,11 +26,13 @@ void doTrafficLightLogic(int interruptSequence)
             }
             else
             {
-                tempCounter = sequenceCounter;
+                tempCounter = sequenceCounter; // تخزين رقم النمط الحالي
             }
+            // ----------------------------------------------
             // go to YELLOW only if it's not already in YELLOW
             if(sequenceCounter%2 != 0)
             {
+                // زود قيمة النمط اذا كانت الإشارة خضراء
                 sequenceCounter++;
             }
             
@@ -40,28 +41,32 @@ void doTrafficLightLogic(int interruptSequence)
             // turn current green traffic light into YELLOW if it's not red
             if(!isHold)
             {
+                // اطفي الاشارة الحالية
                 go2Sequence(sequenceCounter);
             }
         } 
     }
+    // -----------------------------------------------------
 
     currentTime = millis();
+    // -------------- ALL RED  من الأصفر للأحمر---------------------
     if (isHold)
     {
         if (currentTime - previousTime >= holdTime)
         {
             if(startInterrupt)
             {
-                sequenceCounter = interruptSequence;
+                sequenceCounter = interruptSequence; // تخزين الامر من الريموت
                 startInterrupt = false;
                 endInterrupt = true;
             }
             else if(endInterrupt)
             {
-                sequenceCounter = tempCounter;
+                sequenceCounter = tempCounter; // العودة الى النمط السابق
                 endInterrupt = false;
                 goBack = true;
             }
+            //   ******* Traffic light *************
             else
             {
                 if(sequenceCounter == 8)
@@ -70,7 +75,7 @@ void doTrafficLightLogic(int interruptSequence)
                 }
                 else
                 {
-                    sequenceCounter++;
+                    sequenceCounter++; // +1
                 }
             }
 
@@ -79,12 +84,14 @@ void doTrafficLightLogic(int interruptSequence)
             isHold = false;
         }
     }
+    // -------------------------------------------
+    /// ********** Start Traffic ***************
     else if (sequenceCounter == 1)
     {
         if (currentTime - previousTime >= onTime)
         {
             sequence2();
-            sequenceCounter++;
+            sequenceCounter++; // +1
             previousTime = currentTime;
         }
     }
